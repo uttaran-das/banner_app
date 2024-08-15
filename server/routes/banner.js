@@ -7,16 +7,19 @@ const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("../db"));
 const router = express_1.default.Router();
 router.get("/", (req, res) => {
-    let sql = "SELECT * FROM banners WHERE id = 1";
+    let sql = "SELECT * FROM banners LIMIT 1";
     db_1.default.query(sql, (err, result) => {
         if (err)
             throw err;
-        res.send(result);
+        res.send(result[0]);
     });
 });
 router.put("/update", (req, res) => {
-    const { description, timer, link } = req.body;
-    let sql = `UPDATE banners SET description = '${description}', timer = ${timer}, link = '${link}' WHERE id = 1`;
+    console.log(req.body);
+    let { description, timer, link } = req.body;
+    if (!timer)
+        timer = 0;
+    let sql = `INSERT INTO banners (id, description, timer, link) VALUES (1, '${description}', ${timer}, '${link}') ON DUPLICATE KEY UPDATE description='${description}', timer=${timer}, link='${link}'`;
     db_1.default.query(sql, (err, result) => {
         if (err)
             throw err;

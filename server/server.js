@@ -8,6 +8,7 @@ const cors_1 = __importDefault(require("cors"));
 const banner_1 = __importDefault(require("./routes/banner"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
+app.use(express_1.default.json());
 app.use("/api/banner", banner_1.default);
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));

@@ -4,6 +4,7 @@ import bannerRoutes from "./routes/banner";
 
 const app = express();
 app.use(cors());
+app.use(express.json());
 app.use("/api/banner", bannerRoutes);
 
 const PORT = process.env.PORT || 5000;

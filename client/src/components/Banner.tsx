@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BannerProps } from "../types.ts"
+import Button from "@mui/material/Button";
+import "./styles/banner.css";
 
-const Banner: React.FC<BannerProps> = ({banner, setBanner}) => {
+const Banner: React.FC<BannerProps> = ({ banner, setBanner }) => {
     const [showBanner, setShowBanner] = useState<boolean>(true);
     const toggleBanner = () => setShowBanner(prevState => !prevState);
 
@@ -33,16 +35,16 @@ const Banner: React.FC<BannerProps> = ({banner, setBanner}) => {
     if (!banner || countdown <= 0) return null;
 
     return (
-        <div>
-            <button onClick={toggleBanner}>
+        <div className="banner-container">
+            <Button variant="outlined" color="info" onClick={toggleBanner}>
                 {showBanner ? 'Hide Banner' : 'Show Banner'}
-            </button>
-            { showBanner &&  (
-                <>
+            </Button>
+            {showBanner && (
+                <div className="banner-content">
                     <h1>{banner.description}</h1>
                     <a href={banner.link}>Click here</a>
                     <p>Countdown: {countdown} seconds</p>
-                </>
+                </div>
             )}
         </div>
     );
